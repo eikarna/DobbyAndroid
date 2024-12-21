@@ -71,7 +71,7 @@ jobs:
       run: |
         sh scripts/setup_macos_cross_compile.sh
         mkdir -p artifact
-        pip3 install pipes
+        python3 -m pip install pipes
       shell: bash
 
     - name: compile iphoneos
