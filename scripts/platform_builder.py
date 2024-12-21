@@ -12,7 +12,7 @@ platforms = {
 #  "macos": ["x86_64", "arm64", "arm64e"],
   "iphoneos": ["arm64", "arm64e"],
 #  "linux": ["x86", "x86_64", "arm", "arm64"],
-  "android": ["armeabi-v7a", "arm64-v8a"]
+  "android": ["arm64-v8a"]
 }
 
 
