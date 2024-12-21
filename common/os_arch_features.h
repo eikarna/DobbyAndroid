@@ -33,7 +33,7 @@ namespace android {
 inline void make_memory_readable(void *address, size_t size) {
 #if defined(ANDROID)
   auto page = (void *)ALIGN_FLOOR(address, OSMemory::PageSize());
-  if (!OSMemory::SetPermission(page, OSMemory::PageSize(), kReadExecute)) {
+  if (!OSMemory::SetPermission(page, OSMemory::PageSize(), MemoryPermission::kReadExecute)) {
     return;
   }
 #endif
