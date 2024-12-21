@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 env:
   CMAKE_VERSION: 3.25.2
@@ -64,7 +65,7 @@ jobs:
     runs-on: macos-latest
     needs: delete_latest_release
     steps:
-    - name: checkout dev
+    - name: checkout master
       uses: actions/checkout@master
 
     - name: init macos compile env
