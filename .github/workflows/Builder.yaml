@@ -8,7 +8,7 @@ on:
 env:
   CMAKE_VERSION: 3.25.2
   LLVM_VERSION: 15.0.6
-  NDK_VERSION: r27c
+  NDK_VERSION: r25b
 
 jobs:
   delete_latest_release:
@@ -25,7 +25,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
 
-  linux_and_android:
+  android:
     runs-on: ubuntu-latest
     needs: delete_latest_release
     steps:
@@ -38,15 +38,6 @@ jobs:
         mkdir -p artifact
       shell: bash
 
-    - name: compile linux
-      run: |
-        python3 scripts/platform_builder.py --platform=linux --arch=all --cmake_dir=$HOME/opt/cmake-$CMAKE_VERSION --llvm_dir=$HOME/opt/llvm-$LLVM_VERSION
-        cp include/dobby.h build/linux
-        tar -zcvf build/dobby-linux-all.tar.gz build/linux
-        cp build/dobby-linux-all.tar.gz artifact/
-        
-      shell: bash
-    
     - name: compile android
       run: |
         python3 scripts/platform_builder.py --platform=android --arch=all --cmake_dir=$HOME/opt/cmake-$CMAKE_VERSION --llvm_dir=$HOME/opt/llvm-$LLVM_VERSION --android_ndk_dir=$HOME/opt/ndk-$NDK_VERSION
@@ -69,7 +60,7 @@ jobs:
         allowUpdates: true
         replacesArtifacts: true
 
-  macos_and_iphoneos:
+  iphoneos:
     runs-on: macos-latest
     needs: delete_latest_release
     steps:
@@ -80,17 +71,9 @@ jobs:
       run: |
         sh scripts/setup_macos_cross_compile.sh
         mkdir -p artifact
+        pip3 install pipes
       shell: bash
 
-    - name: compile macos
-      run: |
-        python3 scripts/platform_builder.py --platform=macos --arch=all --cmake_dir=$HOME/opt/cmake-$CMAKE_VERSION/CMake.app/Contents
-        cp include/dobby.h build/macos
-        tar -zcvf build/dobby-macos-all.tar.gz build/macos
-        cp build/dobby-macos-all.tar.gz artifact/
-        
-      shell: bash
-    
     - name: compile iphoneos
       run: |
         python3 scripts/platform_builder.py --platform=iphoneos --arch=all --cmake_dir=$HOME/opt/cmake-$CMAKE_VERSION/CMake.app/Contents
