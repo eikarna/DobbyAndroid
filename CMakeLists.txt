@@ -321,6 +321,7 @@ set_target_properties(dobby
 
 set_target_properties(dobby_static
   PROPERTIES
+  LINK_FLAGS "${linker_flags}"
   COMPILE_FLAGS "${compiler_flags}"
   )
 
