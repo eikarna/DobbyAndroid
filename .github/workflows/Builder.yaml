@@ -8,7 +8,7 @@ on:
 env:
   CMAKE_VERSION: 3.25.2
   LLVM_VERSION: 15.0.6
-  NDK_VERSION: r25b
+  NDK_VERSION: r27c
 
 jobs:
   delete_latest_release:
@@ -23,7 +23,7 @@ jobs:
         delete_release: true
         tag_name: latest
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
 
   linux_and_android:
     runs-on: ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
     - name: update release
       uses: ncipollo/release-action@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PAT_GITHUB_TOKEN }}
         tag: latest
         body: "a lightweight, multi-platform, multi-architecture exploit hook framework"
         artifacts: "build/dobby-linux-all.tar.gz,build/dobby-android-all.tar.gz"
@@ -106,7 +106,7 @@ jobs:
     - name: update release
       uses: ncipollo/release-action@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PAT_GITHUB_TOKEN }}
         tag: latest
         body: "a lightweight, multi-platform, multi-architecture exploit hook framework"
         artifacts: "build/dobby-macos-all.tar.gz,build/dobby-iphoneos-all.tar.gz"
